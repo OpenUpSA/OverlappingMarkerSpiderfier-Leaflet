@@ -2,13 +2,13 @@
   'use strict';
 
   /** @preserve OverlappingMarkerSpiderfier
-  https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet
-  Copyright (c) 2011 - 2012 George MacKerron
-  Released under the MIT licence: http://opensource.org/licenses/mit-license
-  Note: The Leaflet maps API must be included *before* this code
+   https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet
+   Copyright (c) 2011 - 2012 George MacKerron
+   Released under the MIT licence: http://opensource.org/licenses/mit-license
+   Note: The Leaflet maps API must be included *before* this code
    */
   var hasProp = {}.hasOwnProperty,
-    slice = [].slice;
+      slice = [].slice;
 
   (function() {
     if (this['L'] == null) {
@@ -284,7 +284,11 @@
               marker.addEventListener('mouseout', mhl.unhighlight);
             }
             marker.setLatLng(footLl);
-            marker.setZIndexOffset(marker.options.zIndexOffset + 1000000);
+            if (marker instanceof L.CircleMarker) {
+              marker.bringToFront();
+            } else {
+              marker.setZIndexOffset(1000000);
+            }
             results.push(marker);
           }
           return results;
@@ -313,7 +317,11 @@
             if (marker !== markerNotToMove) {
               marker.setLatLng(marker['_omsData'].usualPosition);
             }
-            marker.setZIndexOffset(marker.options.zIndexOffset - 1000000);
+            if (marker instanceof L.CircleMarker) {
+              marker.bringToBack();
+            } else {
+              marker.setZIndexOffset(0);
+            }
             mhl = marker['_omsData'].highlightListeners;
             if (mhl != null) {
               marker.removeEventListener('mouseover', mhl.highlight);
