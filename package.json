@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "coffee-script": "1.12.7",
-    "lodash": "4.17.11",
+    "lodash": "4.17.21",
     "rollup": "1.15.1",
     "rollup-plugin-coffee-script": "1.1.0",
     "rollup-plugin-uglify": "6.0.2"
